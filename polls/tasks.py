@@ -1,18 +1,16 @@
 import random
-from celery import shared_task
+from mysite.celery import app
 
 
-@shared_task
+@app.task(bind=True)
 def add(x, y):
     return x + y
 
-
-@shared_task
+@app.task(bind=True)
 def mul(x, y):
     total = x * (y * random.randint(3, 100))
     return total
 
-
-@shared_task
+@app.task(bind=True)
 def xsum(numbers):
     return sum(numbers)
